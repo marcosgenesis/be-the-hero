@@ -1,5 +1,4 @@
 import styled from "styled-components";
-
 export const Container = styled.div`
   width: 100%;
   max-width: 1180px;
@@ -42,6 +41,13 @@ export const Container = styled.div`
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 24px;
     list-style: none;
+    .emptyCases {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translateX(-50%);
+      color: #737360;
+    }
     li {
       background: #fff;
       padding: 24px;

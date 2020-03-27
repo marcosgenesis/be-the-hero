@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 import { Form } from "@unform/web";
 import Input from "../../components/Input";
 import api from "../../services/api";
@@ -13,6 +14,7 @@ export default function NewIncident() {
   const ongId = localStorage.getItem("ongId");
   const [description, setDescription] = useState("");
 
+  if (ongId === null) history.push("/");
   async function handleNewIncident({ title, value }) {
     try {
       await api.post(
@@ -22,7 +24,7 @@ export default function NewIncident() {
       );
       history.push("/profile");
     } catch (error) {
-      alert("Erro ao cadastrar caso, tente novamente!");
+      toast.error("Erro ao cadastrar caso, tente novamente!");
     }
   }
   return (

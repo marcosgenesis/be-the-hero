@@ -1,6 +1,6 @@
 import React from "react";
 import { Router } from "react-router-dom";
-
+import { ToastContainer } from "react-toastify";
 import history from "./services/history";
 import Routes from "./routes";
 
@@ -10,6 +10,7 @@ export default function src() {
     <Router history={history}>
       <Routes />
       <GlobalStyle />
+      <ToastContainer autoClose={4000} />
     </Router>
   );
 }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+import { toast } from "react-toastify";
 import api from "../../services/api";
 
 import { Link, useHistory } from "react-router-dom";
@@ -13,6 +13,7 @@ export default function Profile() {
   const [incidents, setIncidents] = useState([]);
   const ongName = localStorage.getItem("ongName");
   const ongId = localStorage.getItem("ongId");
+  if (ongId === null) history.push("/");
 
   useEffect(() => {
     async function loadIncidents() {
@@ -31,7 +32,7 @@ export default function Profile() {
       });
       setIncidents(incidents.filter(incident => incident.id !== id));
     } catch (error) {
-      alert("Erro em deletar caso, tente novamente");
+      toast.error("Erro em deletar caso, tente novamente");
     }
   }
 
@@ -54,24 +55,28 @@ export default function Profile() {
       </header>
       <h1>Casos cadastrados</h1>
       <ul>
-        {incidents.map(incident => (
-          <li key={incident.id}>
-            <strong>CASO</strong>
-            <p>{incident.title}</p>
-            <strong>DESCRIÇÃO</strong>
-            <p>{incident.description}</p>
-            <strong>VALOR</strong>
-            <p>
-              {Intl.NumberFormat("pt-BR", {
-                style: "currency",
-                currency: "BRL"
-              }).format(incident.value)}
-            </p>
-            <button onClick={() => handleDeleteIncident(incident.id)}>
-              <FiTrash2 size={20} color="#a8a8a3"></FiTrash2>
-            </button>
-          </li>
-        ))}
+        {incidents.length === 0 ? (
+          <p className="emptyCases">Nenhum caso cadastrado</p>
+        ) : (
+            incidents.map(incident => (
+              <li key={incident.id}>
+                <strong>CASO</strong>
+                <p>{incident.title}</p>
+                <strong>DESCRIÇÃO</strong>
+                <p>{incident.description}</p>
+                <strong>VALOR</strong>
+                <p>
+                  {Intl.NumberFormat("pt-BR", {
+                    style: "currency",
+                    currency: "BRL"
+                  }).format(incident.value)}
+                </p>
+                <button onClick={() => handleDeleteIncident(incident.id)}>
+                  <FiTrash2 size={20} color="#a8a8a3"></FiTrash2>
+                </button>
+              </li>
+            ))
+          )}
       </ul>
     </Container>
   );

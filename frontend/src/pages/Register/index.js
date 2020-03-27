@@ -1,4 +1,5 @@
 import React from "react";
+import { toast } from "react-toastify";
 import { Form } from "@unform/web";
 import Input from "../../components/Input";
 import api from "../../services/api";
@@ -12,10 +13,10 @@ export default function Register() {
   async function handleRegister(data) {
     try {
       const response = await api.post("ongs", data);
-      alert(`Seu id de acesso: ${response.data.id}`);
+      toast.success(`Seu id de acesso: ${response.data.id}`);
       history.push("/");
     } catch (error) {
-      alert("Erro no cadastro, tente novamente");
+      toast.error("Erro no cadastro, tente novamente");
     }
   }
   return (

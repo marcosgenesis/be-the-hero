@@ -1,6 +1,7 @@
 import React from "react";
 import { Form } from "@unform/web";
 import Input from "../../components/Input";
+import { toast } from "react-toastify";
 import { FiLogIn } from "react-icons/fi";
 import { Link, useHistory } from "react-router-dom";
 import api from "../../services/api";
@@ -17,7 +18,7 @@ export default function Logon() {
       localStorage.setItem("ongName", response.data.name);
       history.push("/profile");
     } catch (error) {
-      alert("Falha no Login, tente novamente");
+      toast.error("Falha no Login, tente novamente");
     }
   }
   return (
